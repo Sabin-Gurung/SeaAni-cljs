@@ -1,0 +1,15 @@
+{
+  "name": "sea-ani",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "npx shadow-cljs watch app"
+  },
+  "devDependencies": {
+    "shadow-cljs": "2.20.16"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  }
+}

@@ -1,0 +1,10 @@
+
+.anime-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.4em;
+}
+
+.anime  {
+    text-align: center;
+}
