@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "npx shadow-cljs watch app"
+    "dev": "npx shadow-cljs watch app",
+    "build": " npx shadow-cljs release app"
   },
   "devDependencies": {
     "shadow-cljs": "2.20.16"
