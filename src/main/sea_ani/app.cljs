@@ -63,7 +63,8 @@
    [:header.container
     [:hgroup
      [:h2 "SeaAni"]
-     [:h3 "Search your seasonal anime shows"]]]])
+     [:h3 "Search your seasonal anime shows. Written in ClojureScript with pico.css." [:br]
+      [:a {:href "https://github.com/Sabin-Gurung/SeaAni-cljs"} "source-code"]]]]])
 
 (defn search []
   #_{:clj-kondo/ignore [:unresolved-symbol]}
