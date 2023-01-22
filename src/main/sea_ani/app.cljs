@@ -1,7 +1,7 @@
 (ns sea-ani.app
   (:require
    [reagent.core :as r]
-   [sea-ani.anime-api :refer [anime-by-season anime-full]]))
+   [sea-ani.anime-api :as api]))
 
 ; ========================= model app states ======================================
 (defonce app-state
@@ -9,7 +9,7 @@
            :search-results nil}))
 
 (defn load-anime! [year season page]
-  (anime-by-season year season page
+  (api/anime-by-season year season page
                    #(-> @app-state
                         (assoc :search-results %)
                         (assoc :search-params {:year year :season season})
@@ -19,7 +19,7 @@
   (let [{:keys [has_next_page current_page]} (get-in @app-state [:search-results :pagination])
         {:keys [season year]} (:search-params @app-state)]
     (when has_next_page
-      (anime-by-season
+      (api/anime-by-season
         year season (inc current_page)
         #(-> @app-state
              (update-in [:search-results :data] concat (:data %))
@@ -85,14 +85,13 @@
 (defn anime-card [anime_id]
   #_{:clj-kondo/ignore [:unresolved-symbol]}
   (r/with-let [data (r/atom {})
-               _ (anime-full anime_id #(reset! data %))]
+               _ (api/anime-full anime_id #(reset! data %))]
     [:<>
      [:h3 (:title_english @data)]
      [:figure
       [:img {:src (:images @data) }]
       [:figcaption (:synopsis @data)]]
-     [:kbd "Popularity : " (:popularity @data)]
-     [:hr]
+     [:kbd "Popularity : " (:popularity @data)] [:hr]
      (when-let [trailer (:trailer @data)]
        [:iframe {:src trailer :width "100%" :height "385px" }])]))
 
@@ -126,8 +125,8 @@
   (js/alert "hello")
   years
   seasons
-  (anime-by-season 2021 "spring" 1 #(def a %))
-  (load-anime! 2021 "fall" 1)
+  (api/anime-by-season 2021 "spring" 1 #(def a %))
+  (api/load-anime! 2021 "fall" 1)
   @model-state
   (-> a
       (update :data (partial take 10))
